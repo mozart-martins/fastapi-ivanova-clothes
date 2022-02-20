@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  db-postgres:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: "&5JLHfj"
+    ports:
+      - "15432:5432"
+    volumes:
+      - /home/mozart/Documentos/PostgreSQL/data:/var/lib/postgresql/data 
+    networks:
+      - postgres-pgadmin
+      
+  db-pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "mozart.dias.martins@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "&5JLHfj"
+    ports:
+      - "16543:80"
+    depends_on:
+      - db-postgres
+    networks:
+      - postgres-pgadmin
+
+networks: 
+  postgres-pgadmin:
+    driver: bridge
